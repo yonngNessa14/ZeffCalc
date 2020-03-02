@@ -6,7 +6,6 @@ export default class App extends Component {
     super(props);
     this.sumX = this.sumX.bind(this);
     this.sumY = this.sumY.bind(this);
-    this.sumZ = this.sumZ.bind(this);
     this.calcZeff = this.calcZeff.bind(this);
   }
   state = {
@@ -109,6 +108,17 @@ export default class App extends Component {
     })
   }
 
+  onChangeMAI3 = (e) => {
+    this.setState({
+      MAI3: e.target.value
+    })
+  }
+  onChangeMAI4 = (e) => {
+    this.setState({
+      MAI4: e.target.value
+    })
+  }
+
   // formulars
   sumX() {
     let x1 = this.state.w1 / this.state.a1;
@@ -133,35 +143,7 @@ export default class App extends Component {
     // })
   }
 
-  sumZ() {
-    
-    let z1 = this.state.mac / this.state.w1;
-    let z2 = this.state.mac / this.state.w2;
-    let z3 = this.state.mac / this.state.w3;
-    let z4 = this.state.mac / this.state.w4;
-
-    if (this.state.cmpdName === '2') {
-      // alert('2');
-      let sumZ = z1 + z2;
-      let MAI = sumZ / 2;
-      return MAI;
-    }
-    if (this.state.cmpdName === '3') {
-      let sumZ = z1 + z2 + z3;
-      let MAI = sumZ / 2;
-      return MAI;
-    }
-    if (this.state.cmpdName === '4') {
-      let sumZ = z1 + z2 + z3 + z4;
-      let MAI = sumZ / 2;
-      return MAI;
-    }
-    // this.setState({
-    //   MAI: MAI
-    // })
-  }
   sumY() {
-    // let MAI = this.sumZ();
 
     let y1 = this.state.w1 * this.state.a1 * this.state.MAI1 / this.state.z1;
     let y2 = this.state.w2 * this.state.a2 * this.state.MAI2 / this.state.z2;
@@ -204,7 +186,7 @@ export default class App extends Component {
         <h1 className="text-capitalize mb-5 text-center">simple zeff calculator</h1>
         <Wrapper>
           <div className="cmpdBox">
-            <label className="mb-4 font-weight-bold" style={{ fontSize: '20px' }}>Number of Compound</label>
+            <label className="mb-4 font-weight-bold" style={{ fontSize: '20px' }}>Name of Compound</label>
             <input type="text" className="text-uppercase font-weight-bold text-center" style={{ padding: '5px', marginLeft: '10px' }} />
           </div>
           <div className="cmpdBox">
@@ -254,18 +236,25 @@ export default class App extends Component {
           </div>
           <div className="">
             <label className="mb-4">MAI 1:</label>
-            <input type="number" value={this.state.mai} onChange={this.onChangeMAI1} style={{ padding: '5px', marginLeft: '5px' }} />
+            <input type="number" value={this.state.MAI1} onChange={this.onChangeMAI1} style={{ padding: '5px', marginLeft: '5px' }} />
           </div>
           <div className="">
             <label className="mb-4">MAI 2:</label>
-            <input type="number" value={this.state.mai} onChange={this.onChangeMAI2} style={{ padding: '5px', marginLeft: '5px' }} />
+            <input type="number" value={this.state.MAI2} onChange={this.onChangeMAI2} style={{ padding: '5px', marginLeft: '5px' }} />
+          </div>
+          <div className="">
+            <label className="mb-4">MAI 3:</label>
+            <input type="number" value={this.state.MAI3} onChange={this.onChangeMAI3} style={{ padding: '5px', marginLeft: '5px' }} />
+          </div>
+          <div className="">
+            <label className="mb-4">MAI 4:</label>
+            <input type="number" value={this.state.MAI4} onChange={this.onChangeMAI4} style={{ padding: '5px', marginLeft: '5px' }} />
           </div>
 
           <div className="text-center">
             <input type="button" onClick={this.calcZeff} value="Calculate Zeff" />
             <p className="mt-3">ZEFF VALUE: {this.state.zeff}</p>
           </div>
-          <p>{this.state.mac}</p>
         </Wrapper>
       </div>
     );
