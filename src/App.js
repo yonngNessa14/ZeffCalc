@@ -6,6 +6,7 @@ export default class App extends Component {
     super(props);
     this.sumX = this.sumX.bind(this);
     this.sumY = this.sumY.bind(this);
+    this.sumZ = this.sumZ.bind(this);
     this.calcZeff = this.calcZeff.bind(this);
   }
   state = {
@@ -14,110 +15,13 @@ export default class App extends Component {
     MAI1: 0, MAI2: 0, MAI3: 0, MAI4: 0,
   }
   
-  onChangeText = (e) => {
-    this.setState({
-      cmpdName: e.target.value
-    })
-  }
-  onChangew1 = (e) => {
-    this.setState({
-      w1: e.target.value
-    })
-    
-  }
-  onChangew2 = (e) => {
-    this.setState({
-      w2: e.target.value
-    })
 
-  }
-  onChangew3 = (e) => {
+  onChangeText = (e, identifier) => {
     this.setState({
-      w3: e.target.value
-    })
-
-  }
-  onChangew4 = (e) => {
-    this.setState({
-      w4: e.target.value
-    })
-
-  }
-  onChangea1 = (e) => {
-    this.setState({
-      a1: e.target.value
-    })
-
-  }
-  onChangea2 = (e) => {
-    this.setState({
-      a2: e.target.value
-    })
-
-  }
-  onChangea3 = (e) => {
-    this.setState({
-      a3: e.target.value
-    })
-
-  }
-  onChangea4 = (e) => {
-    this.setState({
-      a4: e.target.value
-    })
-
-  }
-  onChangez1 = (e) => {
-    this.setState({
-      z1: e.target.value
-    })
-
-  }
-  onChangez2 = (e) => {
-    this.setState({
-      z2: e.target.value
-    })
-
-  }
-  onChangez3 = (e) => {
-    this.setState({
-      z3: e.target.value
-    })
-
-  }
-  onChangez4 = (e) => {
-    this.setState({
-      z4: e.target.value
-    })
-
-  }
-  onChangeMAC = (e) => {
-    this.setState({
-      mac: e.target.value
+      [identifier]: e.target.value
     })
   }
 
-  onChangeMAI1 = (e) => {
-    this.setState({
-      MAI1: e.target.value
-    })
-  }
-  onChangeMAI2 = (e) => {
-    this.setState({
-      MAI2: e.target.value
-    })
-  }
-
-  onChangeMAI3 = (e) => {
-    this.setState({
-      MAI3: e.target.value
-    })
-  }
-  onChangeMAI4 = (e) => {
-    this.setState({
-      MAI4: e.target.value
-    })
-  }
 
   // formulars
   sumX() {
@@ -143,7 +47,35 @@ export default class App extends Component {
     // })
   }
 
+  sumZ() {
+    
+    let z1 = this.state.mac / this.state.w1;
+    let z2 = this.state.mac / this.state.w2;
+    let z3 = this.state.mac / this.state.w3;
+    let z4 = this.state.mac / this.state.w4;
+
+    if (this.state.cmpdName === '2') {
+      // alert('2');
+      let sumZ = z1 + z2;
+      let MAI = sumZ / 2;
+      return MAI;
+    }
+    if (this.state.cmpdName === '3') {
+      let sumZ = z1 + z2 + z3;
+      let MAI = sumZ / 2;
+      return MAI;
+    }
+    if (this.state.cmpdName === '4') {
+      let sumZ = z1 + z2 + z3 + z4;
+      let MAI = sumZ / 2;
+      return MAI;
+    }
+    // this.setState({
+    //   MAI: MAI
+    // })
+  }
   sumY() {
+    // let MAI = this.sumZ();
 
     let y1 = this.state.w1 * this.state.a1 * this.state.MAI1 / this.state.z1;
     let y2 = this.state.w2 * this.state.a2 * this.state.MAI2 / this.state.z2;
@@ -186,75 +118,76 @@ export default class App extends Component {
         <h1 className="text-capitalize mb-5 text-center">simple zeff calculator</h1>
         <Wrapper>
           <div className="cmpdBox">
-            <label className="mb-4 font-weight-bold" style={{ fontSize: '20px' }}>Name of Compound</label>
+            <label className="mb-4 font-weight-bold" style={{ fontSize: '20px' }}>Number of Compound</label>
             <input type="text" className="text-uppercase font-weight-bold text-center" style={{ padding: '5px', marginLeft: '10px' }} />
           </div>
           <div className="cmpdBox">
             <label className="mb-4 font-weight-bold" style={{fontSize: '20px'}}>Number of Elements</label>
-            <input type="number" value={this.state.cmpdName} onChange={this.onChangeText} style={{ padding: '5px', marginLeft: '10px'}}/>
+            <input type="number" value={this.state.cmpdName} onChange={(e) => this.onChangeText(e, 'cmpdName')} style={{ padding: '5px', marginLeft: '10px'}}/>
           </div>
 
           <div className="stateTypes">
             <label>W1: </label>
-            <input className="mx-2" type="number" value={this.state.w1} onChange={this.onChangew1} name="w1" />
+            <input className="mx-2" type="number" value={this.state.w1} onChange={(e) => this.onChangeText(e, 'w1')} name="w1" />
             <label>A1: </label>
-            <input className="mx-2" type="number" value={this.state.a1} onChange={this.onChangea1} name="a1" />
+            <input className="mx-2" type="number" value={this.state.a1} onChange={(e) => this.onChangeText(e, 'a1')} name="a1" />
             <label>Z1: </label>
-            <input className="mx-2" type="number" value={this.state.z1} onChange={this.onChangez1} name="z1" />
+            <input className="mx-2" type="number" value={this.state.z1} onChange={(e) => this.onChangeText(e, 'z1')} name="z1" />
           </div>
 
           <div className="stateTypes">
             <label>W2: </label>
-            <input className="mx-2" type="number" value={this.state.w2} onChange={this.onChangew2} name="w2" />
+            <input className="mx-2" type="number" value={this.state.w2} onChange={(e) => this.onChangeText(e, 'w2')} name="w2" />
             <label>A2: </label>
-            <input className="mx-2" type="number" value={this.state.a2} onChange={this.onChangea2} name="a2" />
+            <input className="mx-2" type="number" value={this.state.a2} onChange={(e) => this.onChangeText(e, 'a2')} name="a2" />
             <label>Z2: </label>
-            <input className="mx-2" type="number" value={this.state.z2} onChange={this.onChangez2} name="z2" />
+            <input className="mx-2" type="number" value={this.state.z2} onChange={(e) => this.onChangeText(e, 'z2')} name="z2" />
           </div>
 
           <div className="stateTypes">
             <label>W3: </label>
-            <input className="mx-2" type="number" value={this.state.w3} onChange={this.onChangew3} name="w3" />
+            <input className="mx-2" type="number" value={this.state.w3} onChange={(e) => this.onChangeText(e, 'w3')} name="w3" />
             <label>A3: </label>
-            <input className="mx-2" type="number" value={this.state.a3} onChange={this.onChangea3} name="a3" />
+            <input className="mx-2" type="number" value={this.state.a3} onChange={(e) => this.onChangeText(e, 'a3')} name="a3" />
             <label>Z3: </label>
-            <input className="mx-2" type="number" value={this.state.z3} onChange={this.onChangez3} name="z3" />
+            <input className="mx-2" type="number" value={this.state.z3} onChange={(e) => this.onChangeText(e, 'z3')} name="z3" />
           </div>
 
           <div className="stateTypes">
             <label>W4: </label>
-            <input className="mx-2" type="number" value={this.state.w4} onChange={this.onChangew4} name="w4" />
+            <input className="mx-2" type="number" value={this.state.w4} onChange={(e) => this.onChangeText(e, 'w4')} name="w4" />
             <label>A4: </label>
-            <input className="mx-2" type="number" value={this.state.a4} onChange={this.onChangea4} name="a4" />
+            <input className="mx-2" type="number" value={this.state.a4} onChange={(e) => this.onChangeText(e, 'a4')} name="a4" />
             <label>Z4: </label>
-            <input className="mx-2" type="number" value={this.state.z4} onChange={this.onChangez4} name="z4" />
+            <input className="mx-2" type="number" value={this.state.z4} onChange={(e) => this.onChangeText(e, 'z4')} name="z4" />
           </div>
 
           <div className="">
             <label className="mb-4">MAC:</label>
-            <input type="number" value={this.state.mac} onChange={this.onChangeMAC} style={{ padding: '5px', marginLeft: '5px'}}/>
+            <input type="number" value={this.state.mac} onChange={(e) => this.onChangeText(e, 'mac')} style={{ padding: '5px', marginLeft: '5px'}}/>
           </div>
           <div className="">
             <label className="mb-4">MAI 1:</label>
-            <input type="number" value={this.state.MAI1} onChange={this.onChangeMAI1} style={{ padding: '5px', marginLeft: '5px' }} />
+            <input type="number" value={this.state.MAI1} onChange={(e) => this.onChangeText(e, 'MAI1')} style={{ padding: '5px', marginLeft: '5px' }} />
           </div>
           <div className="">
             <label className="mb-4">MAI 2:</label>
-            <input type="number" value={this.state.MAI2} onChange={this.onChangeMAI2} style={{ padding: '5px', marginLeft: '5px' }} />
+            <input type="number" value={this.state.MAI2} onChange={(e) => this.onChangeText(e, 'MAI2')} style={{ padding: '5px', marginLeft: '5px' }} />
           </div>
           <div className="">
             <label className="mb-4">MAI 3:</label>
-            <input type="number" value={this.state.MAI3} onChange={this.onChangeMAI3} style={{ padding: '5px', marginLeft: '5px' }} />
+            <input type="number" value={this.state.MAI3} onChange={(e) => this.onChangeText(e, 'MAI3')} style={{ padding: '5px', marginLeft: '5px' }} />
           </div>
           <div className="">
             <label className="mb-4">MAI 4:</label>
-            <input type="number" value={this.state.MAI4} onChange={this.onChangeMAI4} style={{ padding: '5px', marginLeft: '5px' }} />
+            <input type="number" value={this.state.MAI4} onChange={(e) => this.onChangeText(e, 'MAI4')} style={{ padding: '5px', marginLeft: '5px' }} />
           </div>
 
           <div className="text-center">
             <input type="button" onClick={this.calcZeff} value="Calculate Zeff" />
             <p className="mt-3">ZEFF VALUE: {this.state.zeff}</p>
           </div>
+          <p>{this.state.mac}</p>
         </Wrapper>
       </div>
     );
