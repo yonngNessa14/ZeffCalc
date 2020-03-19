@@ -118,8 +118,8 @@ export default class App extends Component {
         <h1 className="text-capitalize mb-5 text-center">simple zeff calculator</h1>
         <Wrapper>
           <div className="cmpdBox">
-            <label className="mb-4 font-weight-bold" style={{ fontSize: '20px' }}>Number of Compound</label>
-            <input type="text" className="text-uppercase font-weight-bold text-center" style={{ padding: '5px', marginLeft: '10px' }} />
+            <label className="mb-4 font-weight-bold" style={{ fontSize: '20px' }}>Name of Compound</label>
+            <input type="text" className="font-weight-bold text-center" style={{ padding: '5px', marginLeft: '10px' }} />
           </div>
           <div className="cmpdBox">
             <label className="mb-4 font-weight-bold" style={{fontSize: '20px'}}>Number of Elements</label>
